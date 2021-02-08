@@ -1,29 +1,27 @@
 
+///////////  PARA ORDENAR RESULTADOS 
 
+// offset sirve para saltear resultados
 
-fetch('https://gateway.marvel.com/v1/public/comics?apikey=a062a92deb46293f30880acc9f6bdac1&orderBy=name')
-.then((res) => {
-  return res.json()
-})
-.then((data) => {
-  console.log(data)
-  comics = data.data.results
-  const seccion = document.querySelector("section")
+// fetch('https://gateway.marvel.com/v1/public/comics?apikey=a062a92deb46293f30880acc9f6bdac1&orderBy=-title&offset=5')
+// .then((res) => {
+//   return res.json()
+// })
+// .then((data) => {
+//   console.log(data)
+//   comics = data.data.results
+//   const seccion = document.querySelector("section")
 
-  comics.map((comic) => {
-    seccion.innerHTML += `<p>${comic.title}</p>`
-  })
+//   comics.map((comic) => {
+//     seccion.innerHTML += `<p>${comic.title}</p>`
+//   })
   
-})
+// })
 
 
-
-
+/////////////// PARA HACER PAG NEXT PARA MOSTRAR MAS RESULTADOS
 
 // const botonProx = document.querySelector("#prox");
-// const urlBase = "https://gateway.marvel.com/v1/public/"
-// const apiKey = "cdf503fce8f2c519f899f64cff25fd79"
-// const comicsPorPagina = 20;
 // let paginaActual = 0;
 
 // botonProx.onclick = () => {
@@ -32,28 +30,65 @@ fetch('https://gateway.marvel.com/v1/public/comics?apikey=a062a92deb46293f30880a
 //   buscarComics(paginaActual)
 // }
 
-// const buscarComics = (url, paginaActual, nombre) => {
+// const comicsPorPagina = 20;
+
+// const buscarComics = () => {
 //   console.log("buscando comics...")
-//   fetch(`${urlBase + url}?apikey=${apiKey}&offset=${paginaActual * comicsPorPagina}`)
+//   fetch(`https://gateway.marvel.com/v1/public/comics?apikey=a062a92deb46293f30880acc9f6bdac1&orderBy=title&offset=${paginaActual * comicsPorPagina}`)
 //   .then((res) => {
 //     return res.json()
 //   })
 //   .then((data) => {
 //     console.log(data)
-//     personajes = data.data.results
+//     comics = data.data.results
 //     const seccion = document.querySelector("section")
-//     seccion.innerHTML = ''
-//     personajes.map((personaje) => {
-//       seccion.innerHTML += `<p>${personaje[nombre]}</p>`
+//     seccion.innerHTML = ""
+//     comics.map((comic) => {
+//       seccion.innerHTML += `<p>${comic.title}</p>`
 //     })
     
 //   })
 // }
 
+// buscarComics()
 
 
-//   buscarComics("comics", paginaActual, "title")
-//    buscarComics("characters", paginaActual, "name")
+
+
+const botonProx = document.querySelector("#prox");
+const urlBase = "https://gateway.marvel.com/v1/public/"
+const apiKey = "a062a92deb46293f30880acc9f6bdac1"
+const comicsPorPagina = 20;
+let paginaActual = 0;
+
+botonProx.onclick = () => {
+  paginaActual++
+  console.log("pagina actual", paginaActual)
+  buscarComics(paginaActual)
+}
+
+const buscarComics = (url, paginaActual, nombre) => {
+  console.log("buscando comics...")
+  fetch(`${urlBase + url}?apikey=${apiKey}&offset=${paginaActual * comicsPorPagina}`)
+  .then((res) => {
+    return res.json()
+  })
+  .then((data) => {
+    console.log(data)
+    personajes = data.data.results
+    const seccion = document.querySelector("section")
+    seccion.innerHTML = ''
+    personajes.map((personaje) => {
+      seccion.innerHTML += `<p>${personaje[nombre]}</p>`
+    })
+    
+  })
+}
+
+
+
+  buscarComics("comics", paginaActual, "title")
+   buscarComics("characters", paginaActual, "name")
 
 
 
